@@ -1,4 +1,4 @@
-# GDScript language support in Atom
+# GDScript language support in Atom [![Build Status](https://travis-ci.org/jlopezcur/language-gdscript.svg?branch=master)](https://travis-ci.org/jlopezcur/language-gdscript)
 
 Adds syntax highlighting and snippets to GDScript files in Atom.
 
