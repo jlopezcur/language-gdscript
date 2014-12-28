@@ -1,0 +1,1578 @@
+'scopeName': 'source.gdscript'
+'name': 'GDScript'
+'fileTypes': [
+  'gd'
+]
+'firstLineMatch': '^#!/.*\\bgdscript\\b'
+'patterns': [
+  {
+    'begin': '(^[ \\t]+)?(?=#)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.whitespace.comment.leading.gdscript'
+    'end': '(?!\\G)'
+    'patterns': [
+      {
+        'begin': '#'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.definition.comment.gdscript'
+        'end': '\\n'
+        'name': 'comment.line.number-sign.gdscript'
+      }
+    ]
+  }
+  {
+    'match': '\\b(?i:(0x\\h*)L)'
+    'name': 'constant.numeric.integer.long.hexadecimal.gdscript'
+  }
+  {
+    'match': '\\b(?i:(0x\\h*))'
+    'name': 'constant.numeric.integer.hexadecimal.gdscript'
+  }
+  {
+    'match': '\\b(?i:(0[0-7]+)L)'
+    'name': 'constant.numeric.integer.long.octal.gdscript'
+  }
+  {
+    'match': '\\b(0[0-7]+)'
+    'name': 'constant.numeric.integer.octal.gdscript'
+  }
+  {
+    'match': '\\b(?i:(((\\d+(\\.(?=[^a-zA-Z_])\\d*)?|(?<=[^0-9a-zA-Z_])\\.\\d+)(e[\\-\\+]?\\d+)?))J)'
+    'name': 'constant.numeric.complex.gdscript'
+  }
+  {
+    'match': '\\b(?i:(\\d+\\.\\d*(e[\\-\\+]?\\d+)?))(?=[^a-zA-Z_])'
+    'name': 'constant.numeric.float.gdscript'
+  }
+  {
+    'match': '(?<=[^0-9a-zA-Z_])(?i:(\\.\\d+(e[\\-\\+]?\\d+)?))'
+    'name': 'constant.numeric.float.gdscript'
+  }
+  {
+    'match': '\\b(?i:(\\d+e[\\-\\+]?\\d+))'
+    'name': 'constant.numeric.float.gdscript'
+  }
+  {
+    'match': '\\b(?i:([1-9]+[0-9]*|0)L)'
+    'name': 'constant.numeric.integer.long.decimal.gdscript'
+  }
+  {
+    'match': '\\b([1-9]+[0-9]*|0)'
+    'name': 'constant.numeric.integer.decimal.gdscript'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.modifier.global.gdscript'
+    'match': '\\b(global)\\b'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.modifier.nonlocal.gdscript'
+    'match': '\\b(nonlocal)\\b'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.control.import.gdscript'
+      '2':
+        'name': 'keyword.control.import.from.gdscript'
+    'match': '\\b(?:(import)|(from))\\b'
+  }
+  {
+    'comment': 'keywords that delimit flow conditionals'
+    'name': 'keyword.control.conditional.gdscript'
+    'match': '\\b(if|elif|else)\\b'
+  }
+  {
+    'comment': 'keywords that delimit an exception'
+    'name': 'keyword.control.exception.gdscript'
+    'match': '\\b(except|finally|try|raise)\\b'
+  }
+  {
+    'comment': 'keywords that delimit loops'
+    'name': 'keyword.control.repeat.gdscript'
+    'match': '\\b(for|while)\\b'
+  }
+  {
+    'comment': 'keywords that alter flow from within a block'
+    'name': 'keyword.control.statement.gdscript'
+    'match': '\\b(with|break|continue|pass|return|yield)\\b'
+  }
+  {
+    'comment': 'keyword operators that evaluate to True or False'
+    'match': '\\b(and|in|is|not|or)\\b'
+    'name': 'keyword.operator.logical.gdscript'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'keyword.other.gdscript'
+    'comment': 'keywords that haven\'t fit into other groups (yet).'
+    'match': '\\b(as|assert|del|exec|print)\\b'
+  }
+  {
+    'match': '<>'
+    'name': 'invalid.deprecated.operator.gdscript'
+  }
+  {
+    'match': '<\\=|>\\=|\\=\\=|<|>|\\!\\='
+    'name': 'keyword.operator.comparison.gdscript'
+  }
+  {
+    'match': '\\+\\=|-\\=|\\*\\=|/\\=|//\\=|%\\=|&\\=|\\|\\=|\\^\\=|>>\\=|<<\\=|\\*\\*\\='
+    'name': 'keyword.operator.assignment.augmented.gdscript'
+  }
+  {
+    'match': '\\+|\\-|\\*|\\*\\*|/|//|%|<<|>>|&|\\||\\^|~'
+    'name': 'keyword.operator.arithmetic.gdscript'
+  }
+  {
+    'match': '\\='
+    'name': 'keyword.operator.assignment.gdscript'
+  }
+  {
+    'begin': '^\\s*(class)\\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\\s*\\:)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.class.gdscript'
+    'contentName': 'entity.name.type.class.gdscript'
+    'end': '\\s*(:)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.section.class.begin.gdscript'
+    'name': 'meta.class.old-style.gdscript'
+    'patterns': [
+      {
+        'include': '#entity_name_class'
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(class)\\s+(?=[a-zA-Z_][a-zA-Z_0-9]*\\s*\\()'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.class.gdscript'
+    'end': '(\\))\\s*(?:(\\:)|(.*$\\n?))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.inheritance.end.gdscript'
+      '2':
+        'name': 'punctuation.section.class.begin.gdscript'
+      '3':
+        'name': 'invalid.illegal.missing-section-begin.gdscript'
+    'name': 'meta.class.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.type.class.gdscript'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_class'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.inheritance.begin.gdscript'
+        'contentName': 'meta.class.inheritance.gdscript'
+        'end': '(?=\\)|:)'
+        'patterns': [
+          {
+            'begin': '(?<=\\(|,)\\s*'
+            'contentName': 'entity.other.inherited-class.gdscript'
+            'end': '\\s*(?:(,)|(?=\\)))'
+            'endCaptures':
+              '1':
+                'name': 'punctuation.separator.inheritance.gdscript'
+            'patterns': [
+              {
+                'include': '$self'
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(class)\\s+(?=[a-zA-Z_][a-zA-Z_0-9])'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.class.gdscript'
+    'end': '(\\()|(\\s*$\\n?|#.*$\\n?)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.inheritance.begin.gdscript'
+      '2':
+        'name': 'invalid.illegal.missing-inheritance.gdscript'
+    'name': 'meta.class.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.type.class.gdscript'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_function'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(def)\\s+(?=[A-Za-z_][A-Za-z0-9_]*\\s*\\()'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.gdscript'
+    'end': '(\\))\\s*(?:(\\:)|(.*$\\n?))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.parameters.end.gdscript'
+      '2':
+        'name': 'punctuation.section.function.begin.gdscript'
+      '3':
+        'name': 'invalid.illegal.missing-section-begin.gdscript'
+    'name': 'meta.function.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.function.gdscript'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_function'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.parameters.begin.gdscript'
+        'contentName': 'meta.function.parameters.gdscript'
+        'end': '(?=\\)\\s*\\:)'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'captures':
+              '1':
+                'name': 'variable.parameter.function.gdscript'
+              '2':
+                'name': 'punctuation.separator.parameters.gdscript'
+            'match': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(?:(,)|(?=[\\n\\)]))'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(def)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.gdscript'
+    'end': '(\\()|\\s*($\\n?|#.*$\\n?)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.parameters.begin.gdscript'
+      '2':
+        'name': 'invalid.illegal.missing-parameters.gdscript'
+    'name': 'meta.function.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.function.gdscript'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_function'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(lambda)(?=\\s+)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.inline.gdscript'
+    'end': '(\\:)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.parameters.end.gdscript'
+      '2':
+        'name': 'punctuation.section.function.begin.gdscript'
+      '3':
+        'name': 'invalid.illegal.missing-section-begin.gdscript'
+    'name': 'meta.function.inline.gdscript'
+    'patterns': [
+      {
+        'begin': '\\s+'
+        'contentName': 'meta.function.inline.parameters.gdscript'
+        'end': '(?=\\:)'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'captures':
+              '1':
+                'name': 'variable.parameter.function.gdscript'
+              '2':
+                'name': 'punctuation.separator.parameters.gdscript'
+            'match': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(?:(,)|(?=[\\n\\)\\:]))'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()'
+    'comment': 'a decorator may be a function call which returns a decorator.'
+    'end': '(\\))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.gdscript'
+    'name': 'meta.function.decorator.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.decorator.gdscript'
+        'contentName': 'entity.name.function.decorator.gdscript'
+        'end': '(?=\\s*\\()'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.arguments.begin.gdscript'
+        'contentName': 'meta.function.decorator.arguments.gdscript'
+        'end': '(?=\\))'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(?=@\\s*[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*)'
+    'contentName': 'entity.name.function.decorator.gdscript'
+    'end': '(?=\\s|$\\n?|#)'
+    'name': 'meta.function.decorator.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=(@)\\s*[A-Za-z_][A-Za-z0-9_]*(\\.[A-Za-z_][A-Za-z0-9_]*)*)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.decorator.gdscript'
+        'end': '(?=\\s|$\\n?|#)'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(?<=\\)|\\])\\s*(\\()'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.begin.gdscript'
+    'contentName': 'meta.function-call.arguments.gdscript'
+    'end': '(\\))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.gdscript'
+    'name': 'meta.function-call.gdscript'
+    'patterns': [
+      {
+        'include': '#keyword_arguments'
+      }
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\()'
+    'end': '(\\))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.gdscript'
+    'name': 'meta.function-call.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\()'
+        'end': '(?=\\s*\\()'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+      {
+        'begin': '(\\()'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.arguments.begin.gdscript'
+        'contentName': 'meta.function-call.arguments.gdscript'
+        'end': '(?=\\))'
+        'patterns': [
+          {
+            'include': '#keyword_arguments'
+          }
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[a-zA-Z_][a-zA-Z_0-9]*)*\\s*\\[)'
+    'end': '(\\])'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.gdscript'
+    'name': 'meta.item-access.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*\\s*\\[)'
+        'end': '(?=\\s*\\[)'
+        'patterns': [
+          {
+            'include': '#dotted_name'
+          }
+        ]
+      }
+      {
+        'begin': '(\\[)'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.arguments.begin.gdscript'
+        'contentName': 'meta.item-access.arguments.gdscript'
+        'end': '(?=\\])'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '(?<=\\)|\\])\\s*(\\[)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.begin.gdscript'
+    'contentName': 'meta.item-access.arguments.gdscript'
+    'end': '(\\])'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.arguments.end.gdscript'
+    'name': 'meta.item-access.gdscript'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.type.function.gdscript'
+    'match': '\\b(def|lambda)\\b'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'storage.type.class.gdscript'
+    'match': '\\b(class)\\b'
+  }
+  {
+    'include': '#line_continuation'
+  }
+  {
+    'include': '#language_variables'
+  }
+  {
+    'match': '\\b(None|True|False|Ellipsis|NotImplemented)\\b'
+    'name': 'constant.language.gdscript'
+  }
+  {
+    'include': '#string_quoted_single'
+  }
+  {
+    'include': '#string_quoted_double'
+  }
+  {
+    'include': '#dotted_name'
+  }
+  {
+    'begin': '(\\()'
+    'end': '(\\))'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.definition.list.begin.gdscript'
+      '2':
+        'name': 'meta.empty-list.gdscript'
+      '3':
+        'name': 'punctuation.definition.list.end.gdscript'
+    'match': '(\\[)(\\s*(\\]))\\b'
+  }
+  {
+    'begin': '(\\[)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.list.begin.gdscript'
+    'end': '(\\])'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.list.end.gdscript'
+    'name': 'meta.structure.list.gdscript'
+    'patterns': [
+      {
+        'begin': '(?<=\\[|\\,)\\s*(?![\\],])'
+        'contentName': 'meta.structure.list.item.gdscript'
+        'end': '\\s*(?:(,)|(?=\\]))'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.separator.list.gdscript'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.definition.tuple.begin.gdscript'
+      '2':
+        'name': 'meta.empty-tuple.gdscript'
+      '3':
+        'name': 'punctuation.definition.tuple.end.gdscript'
+    'match': '(\\()(\\s*(\\)))'
+    'name': 'meta.structure.tuple.gdscript'
+  }
+  {
+    'captures':
+      '1':
+        'name': 'punctuation.definition.dictionary.begin.gdscript'
+      '2':
+        'name': 'meta.empty-dictionary.gdscript'
+      '3':
+        'name': 'punctuation.definition.dictionary.end.gdscript'
+    'match': '(\\{)(\\s*(\\}))'
+    'name': 'meta.structure.dictionary.gdscript'
+  }
+  {
+    'begin': '(\\{)'
+    'beginCaptures':
+      '1':
+        'name': 'punctuation.definition.dictionary.begin.gdscript'
+    'end': '(\\})'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.dictionary.end.gdscript'
+    'name': 'meta.structure.dictionary.gdscript'
+    'patterns': [
+      {
+        'begin': '(?<=\\{|\\,|^)\\s*(?![\\},])'
+        'contentName': 'meta.structure.dictionary.key.gdscript'
+        'end': '\\s*(?:(?=\\})|(\\:))'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.separator.valuepair.dictionary.gdscript'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+      {
+        'begin': '(?<=\\:|^)\\s*'
+        'contentName': 'meta.structure.dictionary.value.gdscript'
+        'end': '\\s*(?:(?=\\})|(,))'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.separator.dictionary.gdscript'
+        'patterns': [
+          {
+            'include': '$self'
+          }
+        ]
+      }
+    ]
+  }
+]
+'repository':
+  'builtin_exceptions':
+    'match': '(?x)\\b(\n\t\t\t\t(\n\t\t\t\t\tArithmetic|Assertion|Attribute|BlockingIO|BrokenPipe|Buffer|ChildProcess|\n\t\t\t\t\tConnection(Aborted|Refused|Reset)?|EOF|Environment|FileExists|\n\t\t\t\t\tFileNotFound|FloatingPoint|Interrupted|IO|IsADirectoryError|\n\t\t\t\t\tImport|Indentation|Index|Key|Lookup|Memory|Name|NotADirectory|\n\t\t\t\t\tNotImplemented|OS|Overflow|Permission|ProcessLookup|Reference|\n\t\t\t\t\tRuntime|Standard|Syntax|System|Tab|Timeout|Type|UnboundLocal|\n\t\t\t\t\tUnicode(Encode|Decode|Translate)?|Value|VMS|Windows|ZeroDivision\n\t\t\t\t)Error|\n\t\t\t\t((Pending)?Deprecation|Runtime|Syntax|User|Future|Import|Unicode|Bytes)?Warning|\n\t\t\t\t(Base)?Exception|\n\t\t\t\tSystemExit|StopIteration|NotImplemented|KeyboardInterrupt|GeneratorExit\n\t\t\t)\\b'
+    'name': 'support.type.exception.gdscript'
+  'builtin_functions':
+    'match': '(?x)\\b(\n\t\t\t\t__import__|all|abs|any|apply|ascii|bin|callable|chr|classmethod|cmp|coerce|\n\t\t\t\tcompile|delattr|dir|divmod|enumerate|eval|execfile|filter|format|getattr|\n\t\t\t\tglobals|hasattr|hash|help|hex|id|input|intern|isinstance|issubclass|iter|\n\t\t\t\tlen|locals|map|max|min|next|oct|open|ord|pow|print|property|range|\n\t\t\t\traw_input|reduce|reload|repr|reversed|round|setattr|sorted|staticmethod|\n\t\t\t\tsum|super|type|unichr|vars|zip\n\t\t\t)\\b'
+    'name': 'support.function.builtin.gdscript'
+  'builtin_types':
+    'match': '(?x)\\b(\n\t\t\t\tbasestring|bool|buffer|bytearray|bytes|complex|dict|float|frozenset|int|\n\t\t\t\tlist|long|memoryview|object|range|set|slice|str|tuple|unicode|xrange\n\t\t\t)\\b'
+    'name': 'support.type.gdscript'
+  'constant_placeholder':
+    'match': '(?i:(%(\\([a-z_]+\\))?#?0?\\-?[ ]?\\+?([0-9]*|\\*)(\\.([0-9]*|\\*))?([hL][a-z]|[a-z%]))|(\\{([!\\[\\].:\\w ]+)?\\}))'
+    'name': 'constant.other.placeholder.gdscript'
+  'docstrings':
+    'patterns': [
+      {
+        'begin': '^\\s*(?=[uU]?[rR]?""")'
+        'end': '(?<=""")'
+        'name': 'comment.block.gdscript'
+        'patterns': [
+          {
+            'include': '#string_quoted_double'
+          }
+        ]
+      }
+      {
+        'begin': '^\\s*(?=[uU]?[rR]?\'\'\')'
+        'end': '(?<=\'\'\')'
+        'name': 'comment.block.gdscript'
+        'patterns': [
+          {
+            'include': '#string_quoted_single'
+          }
+        ]
+      }
+    ]
+  'dotted_name':
+    'begin': '(?=[A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z_][A-Za-z0-9_]*)*)'
+    'end': '(?![A-Za-z0-9_\\.])'
+    'patterns': [
+      {
+        'begin': '(\\.)(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#magic_function_names'
+          }
+          {
+            'include': '#magic_variable_names'
+          }
+          {
+            'include': '#illegal_names'
+          }
+          {
+            'include': '#generic_names'
+          }
+        ]
+      }
+      {
+        'begin': '(?<!\\.)(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#builtin_functions'
+          }
+          {
+            'include': '#builtin_types'
+          }
+          {
+            'include': '#builtin_exceptions'
+          }
+          {
+            'include': '#illegal_names'
+          }
+          {
+            'include': '#magic_function_names'
+          }
+          {
+            'include': '#magic_variable_names'
+          }
+          {
+            'include': '#language_variables'
+          }
+          {
+            'include': '#generic_names'
+          }
+        ]
+      }
+    ]
+  'entity_name_class':
+    'patterns': [
+      {
+        'include': '#illegal_names'
+      }
+      {
+        'include': '#generic_names'
+      }
+    ]
+  'entity_name_function':
+    'patterns': [
+      {
+        'include': '#magic_function_names'
+      }
+      {
+        'include': '#illegal_names'
+      }
+      {
+        'include': '#generic_names'
+      }
+    ]
+  'escaped_char':
+    'captures':
+      '1':
+        'name': 'constant.character.escape.hex.gdscript'
+      '2':
+        'name': 'constant.character.escape.octal.gdscript'
+      '3':
+        'name': 'constant.character.escape.newline.gdscript'
+      '4':
+        'name': 'constant.character.escape.backlash.gdscript'
+      '5':
+        'name': 'constant.character.escape.double-quote.gdscript'
+      '6':
+        'name': 'constant.character.escape.single-quote.gdscript'
+      '7':
+        'name': 'constant.character.escape.bell.gdscript'
+      '8':
+        'name': 'constant.character.escape.backspace.gdscript'
+      '9':
+        'name': 'constant.character.escape.formfeed.gdscript'
+      '10':
+        'name': 'constant.character.escape.linefeed.gdscript'
+      '11':
+        'name': 'constant.character.escape.return.gdscript'
+      '12':
+        'name': 'constant.character.escape.tab.gdscript'
+      '13':
+        'name': 'constant.character.escape.vertical-tab.gdscript'
+    'match': '(\\\\x[0-9A-F]{2})|(\\\\[0-7]{3})|(\\\\\\n)|(\\\\\\\\)|(\\\\\\")|(\\\\\')|(\\\\a)|(\\\\b)|(\\\\f)|(\\\\n)|(\\\\r)|(\\\\t)|(\\\\v)'
+  'escaped_unicode_char':
+    'captures':
+      '1':
+        'name': 'constant.character.escape.unicode.16-bit-hex.gdscript'
+      '2':
+        'name': 'constant.character.escape.unicode.32-bit-hex.gdscript'
+      '3':
+        'name': 'constant.character.escape.unicode.name.gdscript'
+    'match': '(\\\\U[0-9A-Fa-f]{8})|(\\\\u[0-9A-Fa-f]{4})|(\\\\N\\{[a-zA-Z ]+\\})'
+  'function_name':
+    'patterns': [
+      {
+        'include': '#magic_function_names'
+      }
+      {
+        'include': '#magic_variable_names'
+      }
+      {
+        'include': '#builtin_exceptions'
+      }
+      {
+        'include': '#builtin_functions'
+      }
+      {
+        'include': '#builtin_types'
+      }
+      {
+        'include': '#generic_names'
+      }
+    ]
+  'generic_names':
+    'match': '[A-Za-z_][A-Za-z0-9_]*'
+  'illegal_names':
+    'match': '\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\\b'
+    'name': 'invalid.illegal.name.gdscript'
+  'keyword_arguments':
+    'begin': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(=)(?!=)'
+    'beginCaptures':
+      '1':
+        'name': 'variable.parameter.function.gdscript'
+      '2':
+        'name': 'keyword.operator.assignment.gdscript'
+    'end': '\\s*(?:(,)|(?=$\\n?|[\\)\\:]))'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.separator.parameters.gdscript'
+    'patterns': [
+      {
+        'include': '$self'
+      }
+    ]
+  'language_variables':
+    'match': '\\b(self|cls)\\b'
+    'name': 'variable.language.gdscript'
+  'line_continuation':
+    'captures':
+      '1':
+        'name': 'punctuation.separator.continuation.line.gdscript'
+      '2':
+        'name': 'invalid.illegal.unexpected-text.gdscript'
+    'match': '(\\\\)(.*)$\\n?'
+  'magic_function_names':
+    'comment': 'these methods have magic interpretation by gdscript and are generally called indirectly through syntactic constructs'
+    'match': '(?x)\\b(__(?:\n\t\t\t\t\t\tabs|add|and|call|cmp|coerce|complex|contains|del|delattr|\n\t\t\t\t\t\tdelete|delitem|delslice|div|divmod|enter|eq|exit|float|\n\t\t\t\t\t\tfloordiv|ge|get|getattr|getattribute|getitem|getslice|gt|\n\t\t\t\t\t\thash|hex|iadd|iand|idiv|ifloordiv|ilshift|imod|imul|init|\n\t\t\t\t\t\tint|invert|ior|ipow|irshift|isub|iter|itruediv|ixor|le|len|\n\t\t\t\t\t\tlong|lshift|lt|mod|mul|ne|neg|new|nonzero|oct|or|pos|pow|\n\t\t\t\t\t\tradd|rand|rdiv|rdivmod|repr|rfloordiv|rlshift|rmod|rmul|ror|\n\t\t\t\t\t\trpow|rrshift|rshift|rsub|rtruediv|rxor|set|setattr|setitem|\n\t\t\t\t\t\tsetslice|str|sub|truediv|unicode|xor\n\t\t\t\t\t)__)\\b'
+    'name': 'support.function.magic.gdscript'
+  'magic_variable_names':
+    'comment': 'magic variables which a class/module may have.'
+    'match': '\\b__(all|bases|class|debug|dict|doc|file|members|metaclass|methods|name|slots|weakref)__\\b'
+    'name': 'support.variable.magic.gdscript'
+  'regular_expressions':
+    'comment': 'Changed disabled to 1 to turn off syntax highlighting in “r” strings.'
+    'disabled': 0
+    'patterns': [
+      {
+        'include': 'source.regexp.gdscript'
+      }
+    ]
+  'string_quoted_double':
+    'patterns': [
+      {
+        'begin': '([uU]r)(""")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted unicode-raw string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.unicode-raw-regex.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': '#regular_expressions'
+          }
+        ]
+      }
+      {
+        'begin': '([uU]R)(""")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted unicode-raw string without regular expression highlighting'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.unicode-raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(r)(""")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted raw string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.raw-regex.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': '#regular_expressions'
+          }
+        ]
+      }
+      {
+        'begin': '(R)(""")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted raw string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '([uU])(""")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted unicode string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.unicode.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'captures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+          '3':
+            'patterns': [
+              {'include': '#constant_placeholder'}
+              {'include': '#escaped_unicode_char'}
+              {'include': '#escaped_char'}
+              {'include': '#regular_expressions'}
+            ]
+          '4':
+            'name': 'punctuation.definition.string.end.gdscript'
+        'comment': 'double-quoted raw string'
+        'match': '([uU]r)(")((?:[^"\\\\]|\\\\.)*)(")'
+        'name': 'string.quoted.double.single-line.unicode-raw-regex.gdscript'
+      }
+      {
+        'begin': '([uU]R)(")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double-quoted raw string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.double.single-line.unicode-raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'captures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+          '3':
+            'patterns': [
+              {'include': '#constant_placeholder'}
+              {'include': '#escaped_char'}
+              {'include': '#regular_expressions'}
+            ]
+          '4':
+            'name': 'punctuation.definition.string.end.gdscript'
+        'comment': 'double-quoted raw string'
+        'match': '(r)(")((?:[^"\\\\]|\\\\.)*)(")'
+        'name': 'string.quoted.double.single-line.raw-regex.gdscript'
+      }
+      {
+        'begin': '(R)(")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double-quoted raw string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.double.single-line.raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '([uU])(")'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted unicode string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.double.single-line.unicode.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(""")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.sql.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(")(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.double.single-line.sql.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(""")'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted string'
+        'end': '((?<=""")(")""|""")'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+        'name': 'string.quoted.double.block.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(")'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'double quoted string'
+        'end': '((?<=")(")|")|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.double.gdscript'
+          '3':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.double.single-line.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+    ]
+  'string_quoted_single':
+    'patterns': [
+      {
+        'captures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '3':
+            'name': 'meta.empty-string.single.gdscript'
+        'match': '(?<!\')(\')((\'))(?!\')'
+        'name': 'string.quoted.single.single-line.gdscript'
+      }
+      {
+        'begin': '([uU]r)(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted unicode-raw string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.unicode-raw-regex.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': '#regular_expressions'
+          }
+        ]
+      }
+      {
+        'begin': '([uU]R)(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted unicode-raw string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.unicode-raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(r)(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted raw string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.raw-regex.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': '#regular_expressions'
+          }
+        ]
+      }
+      {
+        'begin': '(R)(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted raw string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '([uU])(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted unicode string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.unicode.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'captures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+          '3':
+            'patterns': [
+              {'include': '#constant_placeholder'}
+              {'include': '#escaped_unicode_char'}
+              {'include': '#escaped_char'}
+              {'include': '#regular_expressions'}
+            ]
+          '4':
+            'name': 'punctuation.definition.string.end.gdscript'
+        'comment': 'single quoted raw string'
+        'match': '([uU]r)(\')((?:[^\'\\\\]|\\\\.)*)(\')'
+        'name': 'string.quoted.single.single-line.unicode-raw-regex.gdscript'
+      }
+      {
+        'begin': '([uU]R)(\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted raw string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.single.single-line.unicode-raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'captures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+          '3':
+            'patterns': [
+              {'include': '#constant_placeholder'}
+              {'include': '#escaped_char'}
+              {'include': '#regular_expressions'}
+            ]
+          '4':
+            'name': 'punctuation.definition.string.end.gdscript'
+        'comment': 'single quoted raw string'
+        'match': '(r)(\')((?:[^\'\\\\]|\\\\.)*)(\')'
+        'name': 'string.quoted.single.single-line.raw-regex.gdscript'
+      }
+      {
+        'begin': '(R)(\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted raw string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.single.single-line.raw.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '([uU])(\')'
+        'beginCaptures':
+          '1':
+            'name': 'storage.type.string.gdscript'
+          '2':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted unicode string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.single.single-line.unicode.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_unicode_char'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(\'\'\')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(\')(?=\\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|REPLACE|ALTER))'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.single.single-line.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+          {
+            'include': 'source.sql'
+          }
+        ]
+      }
+      {
+        'begin': '(\'\'\')'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted string'
+        'end': '((?<=\'\'\')(\')\'\'|\'\'\')'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'meta.empty-string.single.gdscript'
+        'name': 'string.quoted.single.block.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+      {
+        'begin': '(\')'
+        'beginCaptures':
+          '1':
+            'name': 'punctuation.definition.string.begin.gdscript'
+        'comment': 'single quoted string'
+        'end': '(\')|(\\n)'
+        'endCaptures':
+          '1':
+            'name': 'punctuation.definition.string.end.gdscript'
+          '2':
+            'name': 'invalid.illegal.unclosed-string.gdscript'
+        'name': 'string.quoted.single.single-line.gdscript'
+        'patterns': [
+          {
+            'include': '#constant_placeholder'
+          }
+          {
+            'include': '#escaped_char'
+          }
+        ]
+      }
+    ]
+  'strings':
+    'patterns': [
+      {
+        'include': '#string_quoted_double'
+      }
+      {
+        'include': '#string_quoted_single'
+      }
+    ]
