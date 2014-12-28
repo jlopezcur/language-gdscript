@@ -3,7 +3,7 @@
 'fileTypes': [
   'gd'
 ]
-'firstLineMatch': '^#!/.*\\bgdscript\\b'
+#'firstLineMatch': '^#!/.*\\bgdscript\\b'
 'patterns': [
   {
     'begin': '(^[ \\t]+)?(?=#)'
@@ -83,6 +83,14 @@
     'match': '\\b(?:(import)|(from))\\b'
   }
   {
+    'captures':
+      '1':
+        'name': 'keyword.control.import.gdscript'
+      '2':
+        'name': 'keyword.control.import.from.gdscript'
+    'match': '\\b(?:(extends)|(from))\\b'
+  }
+  {
     'comment': 'keywords that delimit flow conditionals'
     'name': 'keyword.control.conditional.gdscript'
     'match': '\\b(if|elif|else)\\b'
@@ -112,7 +120,7 @@
       '1':
         'name': 'keyword.other.gdscript'
     'comment': 'keywords that haven\'t fit into other groups (yet).'
-    'match': '\\b(as|assert|del|exec|print)\\b'
+    'match': '\\b(as|assert|del|exec|print|var)\\b'
   }
   {
     'match': '<>'
@@ -276,6 +284,31 @@
   }
   {
     'begin': '^\\s*(def)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)'
+    'beginCaptures':
+      '1':
+        'name': 'storage.type.function.gdscript'
+    'end': '(\\()|\\s*($\\n?|#.*$\\n?)'
+    'endCaptures':
+      '1':
+        'name': 'punctuation.definition.parameters.begin.gdscript'
+      '2':
+        'name': 'invalid.illegal.missing-parameters.gdscript'
+    'name': 'meta.function.gdscript'
+    'patterns': [
+      {
+        'begin': '(?=[A-Za-z_][A-Za-z0-9_]*)'
+        'contentName': 'entity.name.function.gdscript'
+        'end': '(?![A-Za-z0-9_])'
+        'patterns': [
+          {
+            'include': '#entity_name_function'
+          }
+        ]
+      }
+    ]
+  }
+  {
+    'begin': '^\\s*(func)\\s+(?=[A-Za-z_][A-Za-z0-9_]*)'
     'beginCaptures':
       '1':
         'name': 'storage.type.function.gdscript'
@@ -502,7 +535,7 @@
     'captures':
       '1':
         'name': 'storage.type.function.gdscript'
-    'match': '\\b(def|lambda)\\b'
+    'match': '\\b(def|lambda|func)\\b'
   }
   {
     'captures':
@@ -641,7 +674,7 @@
     'match': '(?x)\\b(\n\t\t\t\t(\n\t\t\t\t\tArithmetic|Assertion|Attribute|BlockingIO|BrokenPipe|Buffer|ChildProcess|\n\t\t\t\t\tConnection(Aborted|Refused|Reset)?|EOF|Environment|FileExists|\n\t\t\t\t\tFileNotFound|FloatingPoint|Interrupted|IO|IsADirectoryError|\n\t\t\t\t\tImport|Indentation|Index|Key|Lookup|Memory|Name|NotADirectory|\n\t\t\t\t\tNotImplemented|OS|Overflow|Permission|ProcessLookup|Reference|\n\t\t\t\t\tRuntime|Standard|Syntax|System|Tab|Timeout|Type|UnboundLocal|\n\t\t\t\t\tUnicode(Encode|Decode|Translate)?|Value|VMS|Windows|ZeroDivision\n\t\t\t\t)Error|\n\t\t\t\t((Pending)?Deprecation|Runtime|Syntax|User|Future|Import|Unicode|Bytes)?Warning|\n\t\t\t\t(Base)?Exception|\n\t\t\t\tSystemExit|StopIteration|NotImplemented|KeyboardInterrupt|GeneratorExit\n\t\t\t)\\b'
     'name': 'support.type.exception.gdscript'
   'builtin_functions':
-    'match': '(?x)\\b(\n\t\t\t\t__import__|all|abs|any|apply|ascii|bin|callable|chr|classmethod|cmp|coerce|\n\t\t\t\tcompile|delattr|dir|divmod|enumerate|eval|execfile|filter|format|getattr|\n\t\t\t\tglobals|hasattr|hash|help|hex|id|input|intern|isinstance|issubclass|iter|\n\t\t\t\tlen|locals|map|max|min|next|oct|open|ord|pow|print|property|range|\n\t\t\t\traw_input|reduce|reload|repr|reversed|round|setattr|sorted|staticmethod|\n\t\t\t\tsum|super|type|unichr|vars|zip\n\t\t\t)\\b'
+    'match': '(?x)\\b(\n\t\t\t\t__import__|extends|all|abs|any|apply|ascii|bin|callable|chr|classmethod|cmp|coerce|\n\t\t\t\tcompile|delattr|dir|divmod|enumerate|eval|execfile|filter|format|getattr|\n\t\t\t\tglobals|hasattr|hash|help|hex|id|input|intern|isinstance|issubclass|iter|\n\t\t\t\tlen|locals|map|max|min|next|oct|open|ord|pow|print|property|range|\n\t\t\t\traw_input|reduce|reload|repr|reversed|round|setattr|sorted|staticmethod|\n\t\t\t\tsum|super|type|unichr|vars|get_tree|get_node|get_root|get_child|get_child_count|queue_free|load|instance|add_child|play|get_item_rect|get_viewport_rect|is_action_pressed|get_joy_axis|get_pos|get_mouse_pos|set_pos|get_children|is_visible|get_texture|get_size|hide|show|Node|Node2D|Rect2|Input|Vector2|zip\n\t\t\t)\\b'
     'name': 'support.function.builtin.gdscript'
   'builtin_types':
     'match': '(?x)\\b(\n\t\t\t\tbasestring|bool|buffer|bytearray|bytes|complex|dict|float|frozenset|int|\n\t\t\t\tlist|long|memoryview|object|range|set|slice|str|tuple|unicode|xrange\n\t\t\t)\\b'
@@ -808,7 +841,7 @@
   'generic_names':
     'match': '[A-Za-z_][A-Za-z0-9_]*'
   'illegal_names':
-    'match': '\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\\b'
+    'match': '\\b(and|as|assert|break|class|continue|def|del|elif|else|except|exec|finally|for|from|global|if|import|extends|in|is|lambda|nonlocal|not|or|pass|print|raise|return|try|while|with|yield)\\b'
     'name': 'invalid.illegal.name.gdscript'
   'keyword_arguments':
     'begin': '\\b([a-zA-Z_][a-zA-Z_0-9]*)\\s*(=)(?!=)'
